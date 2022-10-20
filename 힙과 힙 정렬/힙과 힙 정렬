@@ -1,0 +1,35 @@
+def max_heapify(arr, i):
+    l = 2 * i
+    r = 2 * i + 1
+    largest = 0
+    
+    if l < len(arr) and arr[l] > arr[i]:
+        largest = l
+    else:
+        largest = i
+    if r < len(arr) and arr[r] > arr[largest]:
+        largest = r
+    
+    # 부모 노드가 largest가 아니면
+    # largest와 i를 서로 swap 해준다.
+    if largest != i:
+        arr[i], arr[largest] = arr[largest], arr[i]
+        max_heapify(arr, largest)
+
+def build_max_heap(arr):
+    for i in range(len(arr) // 2 - 1, 0, -1):
+        max_heapify(arr, i)
+
+def heap_sort(arr):
+    sortedArr = []
+    while len(arr) > 1:
+        arr[1], arr[len(arr) - 1] = arr[len(arr) - 1], arr[1]
+        sortedArr.append(arr[len(arr) - 1])
+        arr.remove(arr[len(arr) - 1])
+        max_heapify(arr, 1)
+    return sortedArr
+    
+# arr = [0,6,3,2,8,9,5,4,1,7]
+
+# build_max_heap(arr)
+# print(heap_sort(arr))    
