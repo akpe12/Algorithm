@@ -1,0 +1,34 @@
+def min_heapify(arr, i):
+    l = 2 * i      # i의 왼쪽 자식 노드
+    r = 2 * i + 1  # i의 오른쪽 자식 노드
+    smallest = 0
+    
+    if l < len(arr) and arr[l] < arr[i]:
+        smallest = l
+    else:
+        smallest = i
+    if r < len(arr) and arr[r] < arr[smallest]:
+        smallest = r
+    
+    # 부모 노드가 smallest가 아니면
+    # largest와 i를 서로 swap 해준다.
+    if smallest != i:
+        arr[i], arr[smallest] = arr[smallest], arr[i]
+        min_heapify(arr, smallest)
+        
+def build_min_heap(arr):
+    for i in range(len(arr) // 2 - 1, 0, -1):
+        min_heapify(arr, i)        
+        
+def heap_sort(arr):
+    sortedArr = []
+    while len(arr) > 1:
+        arr[1], arr[len(arr) - 1] = arr[len(arr) - 1], arr[1]
+        sortedArr.append(arr[len(arr) - 1])
+        arr.remove(arr[len(arr) - 1])
+        min_heapify(arr, 1)
+    return sortedArr
+    
+# arr = [0,6,3,2,8,9,5,4,1,7]
+# build_min_heap(arr)
+# print(heap_sort(arr))    
